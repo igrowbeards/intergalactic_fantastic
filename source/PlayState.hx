@@ -20,11 +20,13 @@ class PlayState extends FlxState {
 	public var player:Player;
 	public var level:FlxTilemap;
 	public var transporters:FlxTypedGroup<Transporter>;
-	public var gravTime:Float = 5;
+	public var gravTime:Float = 3;
 	public var hud:HUD;
 	public var warningTime:Float = .5;
 	public var spikes:FlxTypedGroup<Spike>;
 	public var crates:FlxTypedGroup<Crate>;
+	public var coins:FlxTypedGroup<Coin>;
+	public var totalCoins:Int;
 
 	override public function create():Void {
 		FlxG.cameras.bgColor = 0xff131c1b;
@@ -49,6 +51,9 @@ class PlayState extends FlxState {
 		crates = new FlxTypedGroup();
 		add(crates);
 
+		coins = new FlxTypedGroup();
+		add(coins);
+
 		parseObjects();
 
 
@@ -68,6 +73,7 @@ class PlayState extends FlxState {
 		FlxG.overlap(player,spikes,playerHitSpike);
 		FlxG.collide(crates,spikes);
 		FlxG.collide(crates,level);
+		FlxG.collide(player,coins,playerGetCoin);
 	}
 
 	private function transport(p:FlxSprite,t:FlxSprite) {
@@ -81,6 +87,10 @@ class PlayState extends FlxState {
 
 	private function playerHitSpike(p:FlxSprite,s:FlxSprite) {
 		FlxG.resetState();
+	}
+
+	private function playerGetCoin(p:FlxSprite,c:FlxSprite) {
+		c.exists = false;
 	}
 
 	private function addPorters() {
@@ -154,8 +164,13 @@ class PlayState extends FlxState {
 				if (spikeMap.getTile(tx,ty) == 2) {
 					spikes.add(new Spike(tx,ty));
 				}
+				/*
 				if (spikeMap.getTile(tx,ty) == 1) {
 					crates.add(new Crate(tx,ty));
+				}
+				*/
+				if (spikeMap.getTile(tx,ty) == 3) {
+					coins.add(new Coin(tx,ty));
 				}
 			}
 		}

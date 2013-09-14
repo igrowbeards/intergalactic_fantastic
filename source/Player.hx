@@ -22,7 +22,7 @@ class Player extends FlxSprite {
 		super(X * 16,Y * 16);
 		makeGraphic(16, 16, 0xffff0000);
 		maxVelocity.set(100, 300);
-		acceleration.y = 100;
+		acceleration.y = 300;
 		health = 3;
 	}
 
