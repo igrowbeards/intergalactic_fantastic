@@ -14,10 +14,11 @@ class Transporter extends FlxSprite {
 	private var ready:Bool;
 	public var target:FlxSprite;
 	public var curColor:String;
+	public var arrayPos:Int;
 
 	public function new(X:Int,Y:Int) {
 		super(X * 16,Y * 16);
-		makeGraphic(16, 32, 0xff00ff00);
+		makeGraphic(32, 32, 0xff00ff00);
 	}
 
 	override public function update():Void {
@@ -26,11 +27,11 @@ class Transporter extends FlxSprite {
 		switch (curColor) {
 
 			case "red":
-				makeGraphic(16, 32, 0xffaa0000);
+				makeGraphic(32, 32, 0xffaa0000);
 			case "blue":
-				makeGraphic(16, 32, 0xff0000aa);
+				makeGraphic(32, 32, 0xff0000aa);
 			case "green":
-				makeGraphic(16, 32, 0xff00aa00);
+				makeGraphic(32, 32, 0xff00aa00);
 
 		}
 	}

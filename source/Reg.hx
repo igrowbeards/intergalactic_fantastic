@@ -3,7 +3,7 @@ package;
 import flixel.util.FlxSave;
 
 /**
-* Handy, pre-built Registry class that can be used to store 
+* Handy, pre-built Registry class that can be used to store
 * references to objects and other things for quick-access. Feel
 * free to simply ignore it or change it in any way you like.
 */
@@ -13,6 +13,7 @@ class Reg
 	 * Generic levels Array that can be used for cross-state stuff.
 	 * Example usage: Storing the levels of a platformer.
 	 */
+	static public var gravityDir:String = "down";
 	static public var levels:Array<Dynamic> = [];
 	/**
 	 * Generic level variable that can be used for cross-state stuff.
@@ -35,7 +36,7 @@ class Reg
 	 */
 	static public var saves:Array<FlxSave> = [];
 	/**
-	 * Generic container for a <code>FlxSave</code>. You might want to 
+	 * Generic container for a <code>FlxSave</code>. You might want to
 	 * consider assigning <code>FlxG._game._prefsSave</code> to this in
 	 * your state if you want to use the same save flixel uses internally
 	 */
