@@ -68,13 +68,9 @@ class PlayState extends FlxState {
 
 		var i = 0;
 		while (i < transporters.length) {
-			if (i == transporters.length - 1) {
-				transporters.members[i].target = transporters.members[0];
-			}
-			else {
-				transporters.members[i].target = transporters.members[i + 1];
-			}
-		    i++;
+			transporters.members[i].target = transporters.members[i + 1];
+			transporters.members[i + 1].target = transporters.members[i];
+		    i += 2;
 		}
 		add(transporters);
 	}
