@@ -22,7 +22,7 @@ class Player extends FlxSprite {
 	#end
 
 	private var jumping:Bool = false;
-	private var maxjumpTime:Float = .3;
+	private var maxjumpTime:Float = .4;
 	public var invulnerable:Bool = false;
 	public var invulnerableTime:Float = 1;
 	public var hurting:Bool = false;
