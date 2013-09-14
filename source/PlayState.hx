@@ -22,7 +22,7 @@ class PlayState extends FlxState {
 	public var transporters:FlxTypedGroup<Transporter>;
 	public var gravTime:Float = 3;
 	public var hud:HUD;
-	public var warningTime:Float = .5;
+	public var warningTime:Float = .1;
 	public var spikes:FlxTypedGroup<Spike>;
 	public var crates:FlxTypedGroup<Crate>;
 	public var coins:FlxTypedGroup<Coin>;
@@ -43,7 +43,7 @@ class PlayState extends FlxState {
 		level = new FlxTilemap();
 		level.loadMap(Assets.getText("data/mapCSV_Group1_Map1.csv"), "images/tiles.png",16,16,0,0,1,1);
 		add(level);
-		FlxTimer.start(gravTime,switchGravity);
+		//FlxTimer.start(gravTime,switchGravity);
 
 		spikes = new FlxTypedGroup();
 		add(spikes);
@@ -66,6 +66,15 @@ class PlayState extends FlxState {
 	}
 
 	override public function update():Void {
+
+		if (FlxG.keys.justPressed.S) {
+			rotateClockwise();
+		}
+
+		if (FlxG.keys.justPressed.A) {
+			rotateCounterClockwise();
+		}
+
 		super.update();
 		FlxG.collide(player,level);
 		FlxG.collide(player,crates);
@@ -128,8 +137,45 @@ class PlayState extends FlxState {
 		add(transporters);
 	}
 
-	public function switchGravity(t:FlxTimer) {
-		switch (Std.random(5)) {
+	public function rotateClockwise() {
+		switch (Reg.gravityDir) {
+			case "up":
+				Reg.gravityDir = "right";
+				hud.notifyGravChange("right");
+			case "right":
+				Reg.gravityDir = "down";
+				hud.notifyGravChange("down");
+			case "down":
+				Reg.gravityDir = "left";
+				hud.notifyGravChange("left");
+			case "left":
+				Reg.gravityDir = "up";
+				hud.notifyGravChange("up");
+		}
+		FlxTimer.start(warningTime,switchGravityNow);
+
+	}
+
+	public function rotateCounterClockwise() {
+		switch (Reg.gravityDir) {
+			case "up":
+				Reg.gravityDir = "left";
+				hud.notifyGravChange("left");
+			case "right":
+				Reg.gravityDir = "up";
+				hud.notifyGravChange("up");
+			case "down":
+				Reg.gravityDir = "right";
+				hud.notifyGravChange("right");
+			case "left":
+				Reg.gravityDir = "down";
+				hud.notifyGravChange("down");
+		}
+		FlxTimer.start(warningTime,switchGravityNow);
+	}
+
+	public function switchGravity(curGrav:Int) {
+		switch ((5)) {
 			case 1:
 				Reg.gravityDir = "left";
 				hud.notifyGravChange("left");
@@ -148,7 +194,7 @@ class PlayState extends FlxState {
 
 	public function switchGravityNow(t:FlxTimer) {
 		player.changeGravity();
-		FlxTimer.start(gravTime,switchGravity);
+		//FlxTimer.start(gravTime,switchGravity);
 
 	}
 
