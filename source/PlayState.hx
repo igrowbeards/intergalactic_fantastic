@@ -23,6 +23,8 @@ class PlayState extends FlxState {
 	public var gravTime:Float = 5;
 	public var hud:HUD;
 	public var warningTime:Float = .5;
+	public var spikes:FlxTypedGroup<Spike>;
+	public var crates:FlxTypedGroup<Crate>;
 
 	override public function create():Void {
 		FlxG.cameras.bgColor = 0xff131c1b;
@@ -41,6 +43,15 @@ class PlayState extends FlxState {
 		add(level);
 		FlxTimer.start(gravTime,switchGravity);
 
+		spikes = new FlxTypedGroup();
+		add(spikes);
+
+		crates = new FlxTypedGroup();
+		add(crates);
+
+		parseObjects();
+
+
 		hud = new HUD();
 		add(hud);
 	}
@@ -52,7 +63,11 @@ class PlayState extends FlxState {
 	override public function update():Void {
 		super.update();
 		FlxG.collide(player,level);
+		FlxG.collide(player,crates);
 		FlxG.overlap(player,transporters,transport);
+		FlxG.overlap(player,spikes,playerHitSpike);
+		FlxG.collide(crates,spikes);
+		FlxG.collide(crates,level);
 	}
 
 	private function transport(p:FlxSprite,t:FlxSprite) {
@@ -62,6 +77,10 @@ class PlayState extends FlxState {
 		transTarg.deactivate();
 		p.x = transTarg.x + 8;
 		p.y = transTarg.y + 6;
+	}
+
+	private function playerHitSpike(p:FlxSprite,s:FlxSprite) {
+		FlxG.resetState();
 	}
 
 	private function addPorters() {
@@ -121,6 +140,25 @@ class PlayState extends FlxState {
 		player.changeGravity();
 		FlxTimer.start(gravTime,switchGravity);
 
+	}
+
+	private function parseObjects() {
+		var spikeMap:FlxTilemap = new FlxTilemap();
+
+		spikeMap.loadMap(Assets.getText("data/mapCSV_Group2_Map1.csv"), "images/tiles.png",16,16);
+
+		for (ty in 0...spikeMap.heightInTiles) {
+
+			for (tx in 0...spikeMap.widthInTiles) {
+
+				if (spikeMap.getTile(tx,ty) == 2) {
+					spikes.add(new Spike(tx,ty));
+				}
+				if (spikeMap.getTile(tx,ty) == 1) {
+					crates.add(new Crate(tx,ty));
+				}
+			}
+		}
 	}
 
 }

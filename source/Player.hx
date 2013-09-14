@@ -23,7 +23,6 @@ class Player extends FlxSprite {
 		makeGraphic(16, 16, 0xffff0000);
 		maxVelocity.set(100, 300);
 		acceleration.y = 100;
-		drag.x = maxVelocity.x * 3;
 		health = 3;
 	}
 
@@ -32,11 +31,12 @@ class Player extends FlxSprite {
 
 		if (Reg.gravityDir == "up" || Reg.gravityDir == "down") {
 			acceleration.x = 0;
+			drag.x = maxVelocity.x * 3;
 		}
 		else {
 			acceleration.y = 0;
+			drag.y = maxVelocity.y * 3;
 		}
-
 
 		// keyboard controls
 
