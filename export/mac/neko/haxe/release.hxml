@@ -1,0 +1,14 @@
+-main ApplicationMain 
+-lib openfl
+-lib openfl-native
+-lib flixel-dev
+-cp source
+-D tools=1
+-D FLX_NO_DEBUG
+-D openfl_ver=1.0.10
+-D openfl
+-D mac
+-D desktop
+-cp export/mac/neko/haxe
+-neko export/mac/neko/obj/ApplicationMain.n
+--macro allowPackage("flash")

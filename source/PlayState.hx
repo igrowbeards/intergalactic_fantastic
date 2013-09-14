@@ -6,6 +6,8 @@ import flixel.FlxState;
 import flixel.text.FlxText;
 import flixel.ui.FlxButton;
 import flixel.util.FlxMath;
+import flixel.tile.FlxTilemap;
+import openfl.Assets;
 
 /**
  * A FlxState which can be used for the actual gameplay.
@@ -13,6 +15,7 @@ import flixel.util.FlxMath;
 class PlayState extends FlxState {
 
 	public var player:Player;
+	public var level:FlxTilemap;
 
 	override public function create():Void {
 		FlxG.cameras.bgColor = 0xff131c1b;
@@ -20,10 +23,13 @@ class PlayState extends FlxState {
 			FlxG.mouse.hide();
 		#end
 
-		player = new Player(2,2);
+		player = new Player(2,17);
 		add(player);
 
 		super.create();
+		level = new FlxTilemap();
+		level.loadMap(Assets.getText("data/mapCSV_Group1_Map1.csv"), "images/tiles.png",16,16,0,0,1,1);
+		add(level);
 	}
 
 	override public function destroy():Void {
@@ -32,5 +38,6 @@ class PlayState extends FlxState {
 
 	override public function update():Void {
 		super.update();
+		FlxG.collide(player,level);
 	}
 }

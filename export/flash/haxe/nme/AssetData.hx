@@ -18,14 +18,20 @@ class AssetData {
 		
 		if (!initialized) {
 			
-			className.set ("assets/data/data-goes-here.txt", nme.NME_assets_data_data_goes_here_txt);
-			type.set ("assets/data/data-goes-here.txt", Reflect.field (AssetType, "text".toUpperCase ()));
-			className.set ("assets/images/images-go-here.txt", nme.NME_assets_images_images_go_here_txt);
-			type.set ("assets/images/images-go-here.txt", Reflect.field (AssetType, "text".toUpperCase ()));
-			className.set ("assets/music/music-goes-here.txt", nme.NME_assets_music_music_goes_here_txt);
-			type.set ("assets/music/music-goes-here.txt", Reflect.field (AssetType, "text".toUpperCase ()));
-			className.set ("assets/sounds/sounds-go-here.txt", nme.NME_assets_sounds_sounds_go_here_txt);
-			type.set ("assets/sounds/sounds-go-here.txt", Reflect.field (AssetType, "text".toUpperCase ()));
+			className.set ("data/data-goes-here.txt", nme.NME_data_data_goes_here_txt);
+			type.set ("data/data-goes-here.txt", Reflect.field (AssetType, "text".toUpperCase ()));
+			className.set ("data/mapCSV_Group1_Map1.csv", nme.NME_data_mapcsv_group1_map1_csv);
+			type.set ("data/mapCSV_Group1_Map1.csv", Reflect.field (AssetType, "text".toUpperCase ()));
+			className.set ("data/mapCSV_Group1_Map1.txt", nme.NME_data_mapcsv_group1_map1_txt);
+			type.set ("data/mapCSV_Group1_Map1.txt", Reflect.field (AssetType, "text".toUpperCase ()));
+			className.set ("images/images-go-here.txt", nme.NME_images_images_go_here_txt);
+			type.set ("images/images-go-here.txt", Reflect.field (AssetType, "text".toUpperCase ()));
+			className.set ("images/tiles.png", nme.NME_images_tiles_png);
+			type.set ("images/tiles.png", Reflect.field (AssetType, "image".toUpperCase ()));
+			className.set ("music/music-goes-here.txt", nme.NME_music_music_goes_here_txt);
+			type.set ("music/music-goes-here.txt", Reflect.field (AssetType, "text".toUpperCase ()));
+			className.set ("sounds/sounds-go-here.txt", nme.NME_sounds_sounds_go_here_txt);
+			type.set ("sounds/sounds-go-here.txt", Reflect.field (AssetType, "text".toUpperCase ()));
 			className.set ("flixel/img/debugger/buttons/open.png", nme.NME_flixel_img_debugger_buttons_open_png);
 			type.set ("flixel/img/debugger/buttons/open.png", Reflect.field (AssetType, "image".toUpperCase ()));
 			className.set ("flixel/img/debugger/buttons/pause.png", nme.NME_flixel_img_debugger_buttons_pause_png);
@@ -106,10 +112,13 @@ class AssetData {
 }
 
 
-class NME_assets_data_data_goes_here_txt extends flash.utils.ByteArray { }
-class NME_assets_images_images_go_here_txt extends flash.utils.ByteArray { }
-class NME_assets_music_music_goes_here_txt extends flash.utils.ByteArray { }
-class NME_assets_sounds_sounds_go_here_txt extends flash.utils.ByteArray { }
+class NME_data_data_goes_here_txt extends flash.utils.ByteArray { }
+class NME_data_mapcsv_group1_map1_csv extends flash.utils.ByteArray { }
+class NME_data_mapcsv_group1_map1_txt extends flash.utils.ByteArray { }
+class NME_images_images_go_here_txt extends flash.utils.ByteArray { }
+class NME_images_tiles_png extends flash.display.BitmapData { public function new () { super (0, 0); } }
+class NME_music_music_goes_here_txt extends flash.utils.ByteArray { }
+class NME_sounds_sounds_go_here_txt extends flash.utils.ByteArray { }
 class NME_flixel_img_debugger_buttons_open_png extends flash.display.BitmapData { public function new () { super (0, 0); } }
 class NME_flixel_img_debugger_buttons_pause_png extends flash.display.BitmapData { public function new () { super (0, 0); } }
 class NME_flixel_img_debugger_buttons_play_png extends flash.display.BitmapData { public function new () { super (0, 0); } }
