@@ -23,7 +23,7 @@ class PlayState extends FlxState {
 			FlxG.mouse.hide();
 		#end
 
-		player = new Player(2,17);
+		player = new Player(18,37);
 		add(player);
 
 		super.create();
