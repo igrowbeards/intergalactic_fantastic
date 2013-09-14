@@ -70,6 +70,20 @@ class PlayState extends FlxState {
 		while (i < transporters.length) {
 			transporters.members[i].target = transporters.members[i + 1];
 			transporters.members[i + 1].target = transporters.members[i];
+			switch (i) {
+
+				case 0:
+					transporters.members[i].curColor = "red";
+					transporters.members[i + 1].curColor = "red";
+				case 2:
+					transporters.members[i].curColor = "green";
+					transporters.members[i + 1].curColor = "green";
+				case 4:
+					transporters.members[i].curColor = "blue";
+					transporters.members[i + 1].curColor = "blue";
+
+			}
+
 		    i += 2;
 		}
 		add(transporters);

@@ -13,6 +13,7 @@ class Transporter extends FlxSprite {
 
 	private var ready:Bool;
 	public var target:FlxSprite;
+	public var curColor:String;
 
 	public function new(X:Int,Y:Int) {
 		super(X * 16,Y * 16);
@@ -21,6 +22,17 @@ class Transporter extends FlxSprite {
 
 	override public function update():Void {
 		super.update();
+
+		switch (curColor) {
+
+			case "red":
+				makeGraphic(16, 32, 0xffaa0000);
+			case "blue":
+				makeGraphic(16, 32, 0xff0000aa);
+			case "green":
+				makeGraphic(16, 32, 0xff00aa00);
+
+		}
 	}
 
 	public function deactivate() {
