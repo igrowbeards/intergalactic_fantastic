@@ -8,6 +8,7 @@ import flixel.ui.FlxButton;
 import flixel.util.FlxMath;
 import flixel.tile.FlxTilemap;
 import flixel.group.FlxGroup;
+import flixel.group.FlxTypedGroup;
 import openfl.Assets;
 
 /**
@@ -17,13 +18,7 @@ class PlayState extends FlxState {
 
 	public var player:Player;
 	public var level:FlxTilemap;
-	public var transporters:FlxGroup;
-	public var transporter1:Transporter;
-	public var transporter2:Transporter;
-	public var transporter3:Transporter;
-	public var transporter4:Transporter;
-	public var transporter5:Transporter;
-	public var transporter6:Transporter;
+	public var transporters:FlxTypedGroup<Transporter>;
 
 	override public function create():Void {
 		FlxG.cameras.bgColor = 0xff131c1b;
@@ -31,26 +26,7 @@ class PlayState extends FlxState {
 			FlxG.mouse.hide();
 		#end
 
-		transporters = new FlxGroup();
-		transporter1 = new Transporter(9,10);
-		transporter2 = new Transporter(22,2);
-		transporter3 = new Transporter(4,25);
-		transporter4 = new Transporter(34,37);
-		transporter5 = new Transporter(19,27);
-		transporter6 = new Transporter(9,35);
-		transporter1.target = transporter2;
-		transporter2.target = transporter1;
-		transporter3.target = transporter4;
-		transporter4.target = transporter3;
-		transporter5.target = transporter6;
-		transporter6.target = transporter5;
-		transporters.add(transporter1);
-		transporters.add(transporter2);
-		transporters.add(transporter3);
-		transporters.add(transporter4);
-		transporters.add(transporter5);
-		transporters.add(transporter6);
-		add(transporters);
+		addPorters();
 
 		player = new Player(18,37);
 		add(player);
@@ -78,6 +54,29 @@ class PlayState extends FlxState {
 		transTarg.deactivate();
 		p.x = transTarg.x;
 		p.y = transTarg.y + 16;
+	}
+
+	private function addPorters() {
+
+		transporters = new FlxTypedGroup();
+		transporters.add(new Transporter(9,10));
+		transporters.add(new Transporter(22,2));
+		transporters.add(new Transporter(4,25));
+		transporters.add(new Transporter(34,37));
+		transporters.add(new Transporter(19,27));
+		transporters.add(new Transporter(9,35));
+
+		var i = 0;
+		while (i < transporters.length) {
+			if (i == transporters.length - 1) {
+				transporters.members[i].target = transporters.members[0];
+			}
+			else {
+				transporters.members[i].target = transporters.members[i + 1];
+			}
+		    i++;
+		}
+		add(transporters);
 	}
 
 }
