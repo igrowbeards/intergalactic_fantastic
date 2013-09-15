@@ -14,6 +14,9 @@ class Reg
 	 * Example usage: Storing the levels of a platformer.
 	 */
 	static public var gravityDir:String = "down";
+	static public var gravityStrength:Int = 400;
+	static public var terminalVelocity:Int = 300;
+
 	static public var levels:Array<Dynamic> = [];
 	/**
 	 * Generic level variable that can be used for cross-state stuff.

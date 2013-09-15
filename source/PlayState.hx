@@ -3,6 +3,7 @@ package;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
+import flixel.FlxObject;
 import flixel.text.FlxText;
 import flixel.ui.FlxButton;
 import flixel.util.FlxMath;
@@ -68,7 +69,26 @@ class PlayState extends FlxState {
 	override public function update():Void {
 
 		if (FlxG.keys.justPressed.S) {
-			rotateClockwise();
+			if (Reg.gravityDir == "down" && player.isTouching(FlxObject.FLOOR)) {
+				rotateClockwise();
+				player.canTurnInAir = true;
+			}
+			else if (Reg.gravityDir == "up" && player.isTouching(FlxObject.UP)) {
+				rotateClockwise();
+				player.canTurnInAir = true;
+			}
+			else if (Reg.gravityDir == "left" && player.isTouching(FlxObject.LEFT)) {
+				rotateClockwise();
+				player.canTurnInAir = true;
+			}
+			else if (Reg.gravityDir == "right" && player.isTouching(FlxObject.RIGHT)) {
+				rotateClockwise();
+				player.canTurnInAir = true;
+			}
+			else if (player.canTurnInAir) {
+				player.canTurnInAir = false;
+				rotateClockwise();
+			}
 		}
 
 		if (FlxG.keys.justPressed.A) {
@@ -105,12 +125,14 @@ class PlayState extends FlxState {
 	private function addPorters() {
 
 		transporters = new FlxTypedGroup();
+		/*
 		transporters.add(new Transporter(14,16));
 		transporters.add(new Transporter(33,33));
 		transporters.add(new Transporter(5,10));
 		transporters.add(new Transporter(3,33));
 		transporters.add(new Transporter(31,5));
 		transporters.add(new Transporter(18,27));
+		*/
 
 		var i = 0;
 		while (i < transporters.length) {

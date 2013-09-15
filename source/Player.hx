@@ -17,12 +17,15 @@ class Player extends FlxSprite {
 	public var invulnerableTime:Float = 1;
 	public var hurting:Bool = false;
 	public var hurtTime:Float = .25;
+	public var maxWalkSpeed:Int = 200;
+	public var walkForce:Int = 200;
+	public var canTurnInAir:Bool = true;
 
 	public function new(X:Int,Y:Int) {
 		super(X * 16,Y * 16);
 		makeGraphic(16, 16, 0xffff0000);
 		maxVelocity.set(100, 400);
-		acceleration.y = 600;
+		acceleration.y = Reg.gravityStrength;
 		health = 3;
 	}
 
@@ -30,12 +33,16 @@ class Player extends FlxSprite {
 		//gravity controls
 
 		if (Reg.gravityDir == "up" || Reg.gravityDir == "down") {
-			acceleration.x = 0;
-			drag.x = maxVelocity.x * 3;
+			if (isTouching(FlxObject.FLOOR) || isTouching(FlxObject.UP)) {
+				acceleration.x = 0;
+				drag.x = maxVelocity.x * 2;
+			}
 		}
 		else {
-			acceleration.y = 0;
-			drag.y = maxVelocity.y * 3;
+			if (isTouching(FlxObject.LEFT) || isTouching(FlxObject.RIGHT)) {
+				acceleration.y = 0;
+				drag.y = maxVelocity.y * 2;
+			}
 		}
 
 		// keyboard controls
@@ -88,21 +95,21 @@ class Player extends FlxSprite {
 	public function changeGravity() {
 		switch (Reg.gravityDir) {
 			case "down":
-				acceleration.y = 600;
+				acceleration.y = Reg.gravityStrength;
 				acceleration.x = 0;
-				maxVelocity.set(200, 400);
+				maxVelocity.set(200, Reg.terminalVelocity);
 			case "left":
 				acceleration.y = 0;
-				acceleration.x = -600;
-				maxVelocity.set(400, 200);
+				acceleration.x = -Reg.gravityStrength;
+				maxVelocity.set(Reg.terminalVelocity, 200);
 			case "right":
 				acceleration.y = 0;
-				acceleration.x = 600;
-				maxVelocity.set(400, 200);
+				acceleration.x = Reg.gravityStrength;
+				maxVelocity.set(Reg.terminalVelocity, 200);
 			case "up":
-				acceleration.y = -600;
+				acceleration.y = -Reg.gravityStrength;
 				acceleration.x = 0;
-				maxVelocity.set(200, 300);
+				maxVelocity.set(200, Reg.terminalVelocity);
 		}
 	}
 
